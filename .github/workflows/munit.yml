@@ -36,9 +36,10 @@ jobs:
       - name: Show where the coverage report landed
         if: always()
         run: |
-          echo "Listing target/site (coverage report location may vary by plugin version):"
-          find target -type d -name 'coverage' -print 2>/dev/null || true
-          ls -R target/site 2>/dev/null || echo "No target/site directory was produced."
+          echo "=== Any coverage / munit / html artifacts anywhere under target ==="
+          find target \( -iname '*coverage*' -o -iname '*munit*' -o -name '*.html' \) -print 2>/dev/null || true
+          echo "=== target tree (2 levels) ==="
+          find target -maxdepth 2 2>/dev/null || echo "No target directory was produced at all."
 
       - name: Publish coverage report
         if: always()
