@@ -42,11 +42,11 @@ jobs:
           find target -maxdepth 2 2>/dev/null || echo "No target directory was produced at all."
 
       - name: Publish coverage report
-          if: always()
-          uses: actions/upload-artifact@v4
-          with:
-            name: munit-coverage-report
-            path: |
-              target/META-INF/mule-src/*/reports/
-              target/site/munit/coverage/
-            if-no-files-found: warn
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: munit-coverage-report
+          path: |
+            target/META-INF/mule-src/*/reports/
+            target/site/munit/coverage/
+          if-no-files-found: warn
