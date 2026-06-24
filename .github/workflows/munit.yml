@@ -33,10 +33,19 @@ jobs:
           --batch-mode
           --no-transfer-progress
 
+      - name: Show where the coverage report landed
+        if: always()
+        run: |
+          echo "Listing target/site (coverage report location may vary by plugin version):"
+          find target -type d -name 'coverage' -print 2>/dev/null || true
+          ls -R target/site 2>/dev/null || echo "No target/site directory was produced."
+
       - name: Publish coverage report
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: munit-coverage-report
-          path: target/site/munit/coverage/
+          path: |
+            target/site/munit/
+            target/munit/coverage/
           if-no-files-found: warn
